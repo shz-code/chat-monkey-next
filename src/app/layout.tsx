@@ -1,3 +1,4 @@
+import Providers from "@/components/Providers";
 import type { Metadata } from "next";
 import { FC, ReactNode } from "react";
 import "./globals.css";
@@ -14,7 +15,9 @@ interface Root {
 const RootLayout: FC<Root> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={``}> {children} </body>
+      <body className={``}>
+        <Providers>{children}</Providers>{" "}
+      </body>
     </html>
   );
 };
