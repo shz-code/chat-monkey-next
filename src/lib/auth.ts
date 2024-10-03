@@ -53,4 +53,7 @@ export const authOptions: NextAuthOptions = {
       return "/dashboard";
     },
   },
+  pages: {
+    signIn: "/auth/login",
+  },
 };
