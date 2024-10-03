@@ -9,9 +9,12 @@ src
 │   ├── layout.tsx
 │   ├── page.tsx
 │   ├── api
-│   │   └── auth
-│   │       └── [...nextauth]
-│   │           └── route.ts (Next Auth Urls)
+│   │   ├── auth
+│   │   │   └── [...nextauth]
+│   │   │       └── route.ts (Next Auth Urls)
+│   │   └── friends
+│   │       └── add
+│   │           └── route.ts
 │   ├── auth
 │   │   └── login.tsx
 │   └── dashboard
@@ -28,6 +31,8 @@ src
 │   │   └── validators.tsx
 │   ├── utilities.ts (cn)
 │   └── db.ts
+├── helper
+│   └── redis.ts
 └── types
     ├── db.d.ts (DB Model Types)
     └── next-auth.d.ts (TS Augmentation to extend base Next Auth JST, Session interface)
