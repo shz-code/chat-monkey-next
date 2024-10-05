@@ -1,5 +1,8 @@
+import FriendRequestsCount from "@/components/FriendRequestsCount";
 import SignOutButton from "@/components/SignOutButton";
+import fetchRedis from "@/helper/redis";
 import { authOptions } from "@/lib/auth";
+import { UserId } from "@/types/next-auth";
 import { Telescope, UserPlus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -36,6 +39,13 @@ const layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions);
   if (!session) notFound();
 
+  const unSeenFriendRequestsCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session.user.id}:incoming_requests`
+    )) as UserId[]
+  ).length;
+
   return (
     <div className="w-full flex h-screen">
       <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
@@ -54,7 +64,7 @@ const layout = async ({ children }: LayoutProps) => {
                 Overview
               </div>
 
-              <ul role="list" className="-mx-2 mt-2 space-y-1">
+              <ul role="list" className="mt-2 space-y-2">
                 {sidebarOptions.map((option) => {
                   return (
                     <li key={option.id}>
@@ -72,6 +82,13 @@ const layout = async ({ children }: LayoutProps) => {
                   );
                 })}
               </ul>
+            </li>
+
+            <li className="mt-2">
+              <FriendRequestsCount
+                userId={session.user.id}
+                initialUnseenRequestCount={unSeenFriendRequestsCount}
+              />
             </li>
 
             <li className="mt-auto flex items-center">

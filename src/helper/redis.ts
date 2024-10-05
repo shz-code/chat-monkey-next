@@ -8,7 +8,7 @@ const getRedisCredentials = () => {
   return { url, token };
 };
 
-type Command = "get" | "sismember";
+type Command = "get" | "sismember" | "smembers";
 
 const fetchRedis = async (command: Command, ...args: string[]) => {
   const url = `${getRedisCredentials().url}/${command}/${args.join("/")}`;
