@@ -53,5 +53,5 @@ export const POST = async (req: Request) => {
       return new Response("Invalid request payload", { status: 422 });
   }
 
-  return new Response("Hello from Next.js!");
+  return new Response("Invalid Request", { status: 400 });
 };
