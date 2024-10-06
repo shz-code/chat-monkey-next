@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
-export async function POST(req: Request) {
+export const POST = async (req: Request) => {
   try {
     const { id } = await req.json();
 
@@ -51,4 +51,4 @@ export async function POST(req: Request) {
 
     return new Response("Invalid request", { status: 400 });
   }
-}
+};
