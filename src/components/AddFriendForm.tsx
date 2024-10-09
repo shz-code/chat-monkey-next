@@ -11,9 +11,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Button from "./ui/Button";
 
-interface AddFriendProps {}
-
-const AddFriendForm: FC<AddFriendProps> = () => {
+const AddFriendForm: FC = () => {
   const [showSuccessState, setShowSuccessState] = useState<boolean>(false);
 
   const {
@@ -41,7 +39,7 @@ const AddFriendForm: FC<AddFriendProps> = () => {
         setError("email", { message: error.response?.data });
         return;
       }
-      setError("email", { message: "Something wnt wrong" });
+      setError("email", { message: "Something went wrong" });
     }
   };
 

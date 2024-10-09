@@ -17,7 +17,7 @@ const getChatMessages = async (chatId: string) => {
       0,
       -1
     )) as string[];
-    console.log(data);
+    // console.log(data);
 
     // let messages = data.reverse();
     // messages = messageArrayValidator.parse(messages);
