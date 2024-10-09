@@ -7,12 +7,14 @@
         "source.organizeImports": "explicit"
     },
     "cSpell.words": [
-    "clsx",
-    "formik",
-    "lucide",
-    "sadd",
-    "sismember",
-    "tailwindcss",
-    "UPSTASH"
+        "clsx",
+        "formik",
+        "lucide",
+        "sadd",
+        "sismember",
+        "smembers",
+        "tailwindcss",
+        "UPSTASH",
+        "zrange"
     ],
 }
