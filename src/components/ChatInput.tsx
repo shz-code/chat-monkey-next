@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Send } from "lucide-react";
 import { FC, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -20,8 +20,9 @@ const ChatInput: FC<ChatInput> = ({ friend, chatId }) => {
     try {
       await axios.post("/api/message/send", { text: input, chatId });
       setInput("");
-    } catch {
-      toast.error("Something went wrong. Please try again later.");
+    } catch (error) {
+      if (error instanceof AxiosError) toast.error(error.response?.data);
+      else toast.error("Something went wrong. Please try again later.");
     } finally {
       setIsLoading(false);
       textAreaRef.current?.focus();

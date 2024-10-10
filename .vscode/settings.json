@@ -16,6 +16,7 @@
         "smembers",
         "tailwindcss",
         "UPSTASH",
+        "zadd",
         "zrange"
     ],
 }
