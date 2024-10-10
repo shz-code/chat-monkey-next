@@ -46,7 +46,7 @@ const Button: FC<ButtonProps> = ({
       {...rest}
     >
       {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-      {children}
+      <div className="flex gap-1 items-center">{children}</div>
     </button>
   );
 };

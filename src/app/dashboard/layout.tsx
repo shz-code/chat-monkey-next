@@ -5,7 +5,7 @@ import getFriendsByUserId from "@/helper/getFriendsByUserId";
 import fetchRedis from "@/helper/redis";
 import { authOptions } from "@/lib/auth";
 import { UserId } from "@/types/next-auth";
-import { Telescope, UserPlus } from "lucide-react";
+import { Send, UserPlus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,7 +54,7 @@ const layout = async ({ children }: LayoutProps) => {
     <div className="w-full flex h-screen">
       <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
         <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
-          <Telescope className="h-8 w-auto text-indigo-600" />
+          <Send className="h-8 w-auto text-indigo-600" />
         </Link>
 
         <div className="text-xs font-semibold leading-6 text-gray-400">
