@@ -1,3 +1,4 @@
+import Chats from "@/components/Chats";
 import FriendRequestsCount from "@/components/FriendRequestsCount";
 import SignOutButton from "@/components/SignOutButton";
 import getFriendsByUserId from "@/helper/getFriendsByUserId";
@@ -63,10 +64,10 @@ const layout = async ({ children }: LayoutProps) => {
         <nav className="flex flex-1 flex-col">
           <ul role="list" className="flex flex-1 flex-col">
             <li>
-              {/* <SidebarChatList sessionId={session.user.id} friends={friends} /> */}
+              <Chats userId={session.user.id} friends={friends} />
             </li>
             <li>
-              <div className="text-xs font-semibold leading-6 text-gray-400">
+              <div className="text-xs font-semibold leading-6 text-gray-400 mt-7">
                 Overview
               </div>
 
