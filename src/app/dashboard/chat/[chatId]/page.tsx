@@ -18,11 +18,10 @@ const getChatMessages = async (chatId: string) => {
   try {
     const data = (await fetchRedis(
       "zrange",
-      `chats:${chatId}:`,
+      `chat:${chatId}:messages`,
       0,
       -1
     )) as string[];
-    // console.log(data);
 
     const dbMessages = data.map((message) => JSON.parse(message) as Message);
 
@@ -33,8 +32,6 @@ const getChatMessages = async (chatId: string) => {
 
     return messages;
   } catch (error) {
-    console.log(error);
-
     notFound();
   }
 };
@@ -84,8 +81,8 @@ const page = async ({ params }: PageProps) => {
       </div>
       <Messages
         // chatId={chatId}
-        // chatPartner={chatPartner}
-        // sessionImg={session.user.image}
+        friendImage={friend.image}
+        userImage={session.user.image}
         userId={session.user.id}
         initialMessages={initialMessages}
       />
