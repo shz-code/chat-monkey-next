@@ -6,16 +6,17 @@ import toast from "react-hot-toast";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "./ui/Button";
 
-interface ChatInput {
+interface ChatInputProps {
   friend: User;
   chatId: string;
 }
-const ChatInput: FC<ChatInput> = ({ friend, chatId }) => {
+const ChatInput: FC<ChatInputProps> = ({ friend, chatId }) => {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const [input, setInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const sendMessage = async () => {
+    if (!input) return;
     setIsLoading(true);
     try {
       await axios.post("/api/message/send", { text: input, chatId });

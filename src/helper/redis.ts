@@ -17,7 +17,7 @@ const fetchRedis = async (command: Command, ...args: (string | number)[]) => {
     headers: {
       Authorization: `Bearer ${getRedisCredentials().token}`,
     },
-    // cache: 'no-store'
+    cache: "no-store",
   });
   if (!response.ok)
     throw new Error(`Error executing Redis command: ${response.statusText}`);

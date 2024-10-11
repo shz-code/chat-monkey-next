@@ -56,7 +56,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({
   };
 
   const denyFriend = async (senderId: string) => {
-    await axios.post("/api/friends/deny", { id: senderId });
+    await axios.post("/api/friends/reject", { id: senderId });
 
     setFriendRequests((prev) =>
       prev.filter((request) => request.senderId !== senderId)
