@@ -27,12 +27,14 @@ const Chats: FC<ChatsProps> = ({ userId, friends }) => {
     const chatHandler = (message: ExtendedMessage) => {
       const shouldNotify =
         pathname !==
-        `dashboard/chat/${chatLinkConstructor(message.senderId, userId)}`;
+        `/dashboard/chat/${chatLinkConstructor(message.senderId, userId)}`;
 
       if (shouldNotify) {
         toast.custom((t) => (
           <CustomToast t={t} userId={userId} message={message} />
         ));
+
+        setUnseenMessages((prev) => [...prev, message]);
       }
     };
 
