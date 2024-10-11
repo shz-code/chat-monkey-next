@@ -23,3 +23,8 @@ interface Message {
   text: string;
   timestamp: number;
 }
+
+interface ExtendedMessage extends Message {
+  senderImage: string;
+  senderName: string;
+}

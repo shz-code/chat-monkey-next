@@ -20,6 +20,9 @@ export const POST = async (req: Request) => {
 
     const friendId = session.user.id === userId1 ? userId2 : userId1;
 
+    const friendRaw = (await fetchRedis("get", `user:${friendId}`)) as string;
+    const friend = JSON.parse(friendRaw) as User;
+
     const isFriend = (await fetchRedis(
       "sismember",
       `user:${session.user.id}:friends`,
@@ -45,6 +48,16 @@ export const POST = async (req: Request) => {
       toPusherKey(`chat:${chatId}`),
       "incoming_message",
       message
+    );
+
+    await pusherServer.trigger(
+      toPusherKey(`user:${friend.id}:chats`),
+      "new_message",
+      {
+        ...message,
+        senderImage: session.user.image,
+        senderName: session.user.name,
+      }
     );
 
     // Save to db

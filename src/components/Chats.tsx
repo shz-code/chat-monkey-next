@@ -1,7 +1,10 @@
 "use client";
-import { chatLinkConstructor } from "@/lib/utilities";
+import { pusherClient } from "@/lib/pusher";
+import { chatLinkConstructor, toPusherKey } from "@/lib/utilities";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import CustomToast from "./CustomToast";
 
 interface ChatsProps {
   userId: string;
@@ -12,6 +15,38 @@ const Chats: FC<ChatsProps> = ({ userId, friends }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [unseenMessages, setUnseenMessages] = useState<Message[]>([]);
+
+  useEffect(() => {
+    pusherClient.subscribe(toPusherKey(`user:${userId}:chats`));
+    pusherClient.subscribe(toPusherKey(`user:${userId}:friends`));
+
+    const newFriendHandler = () => {
+      router.refresh();
+    };
+
+    const chatHandler = (message: ExtendedMessage) => {
+      const shouldNotify =
+        pathname !==
+        `dashboard/chat/${chatLinkConstructor(message.senderId, userId)}`;
+
+      if (shouldNotify) {
+        toast.custom((t) => (
+          <CustomToast t={t} userId={userId} message={message} />
+        ));
+      }
+    };
+
+    pusherClient.bind("new_message", chatHandler);
+    pusherClient.bind("new_friend", newFriendHandler);
+
+    return () => {
+      pusherClient.unsubscribe(toPusherKey(`user:${userId}:chats`));
+      pusherClient.unsubscribe(toPusherKey(`user:${userId}:friends`));
+
+      pusherClient.unbind("new_message", chatHandler);
+      pusherClient.unbind("new_friend", newFriendHandler);
+    };
+  }, [pathname, userId]);
 
   useEffect(() => {
     if (pathname?.includes("chat")) {
